@@ -1,0 +1,63 @@
+#incluede<stdio.h>
+#include<stdlib.h>
+struct node
+{
+int data;
+struct node *left;
+struct node *right;
+}node;
+node *newtree()
+{
+    node *newnode;
+    int data;
+    printf("Enter -1 to terminate");
+    scanf("%d",&data);
+    if(data==-1)
+	  return NULL;
+    newnode=(node*)malloc(sizeof(node));
+    newnode->data=data;
+    printf("Enter left child of %d:\n",data);
+    newnode->left=newtree();
+    printf("Enter right child of %d:\n",data);
+    newnode->right=newtree();
+    return newnode;
+}
+
+void preorder(node *t)
+{
+ if(t!=NULL)
+ {
+  printf("%d",t->data);
+  preorder(t->left);
+  preorder(t->right);
+ }
+}
+void inorder(node *t)
+{
+ if(t!=NULL)
+ {
+ inorder(t->left);
+ printf("%d",t->data);
+ inorder(t->right);
+ }
+}
+void postorder(node *t)
+{
+if(t!=NULL)
+{
+postorder(t->left);
+postorder(t->right);
+printf("  %d",t->data);
+}
+}
+void main()
+{
+ struct node *root;
+  root=newtree();
+  printf("The preorder traversal of tree is");
+  preorder(root);
+  printf("The inorder traversal of tree is");
+  inorder(root);
+  printf("The postorder traversal of tree is");
+  postorder(root);
+}
